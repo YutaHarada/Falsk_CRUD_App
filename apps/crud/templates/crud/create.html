@@ -1,0 +1,42 @@
+{% extends "crud/base.html" %}
+<!-- ユーザー作成画面のテンプレート -->
+{% block title %}ユーザー新規作成{% endblock %}
+{% block content %}
+<div class="mx-auto crud-main">
+    <div class="card crud-signup">
+        <header>ユーザー新規作成</header>
+        <section>
+            <form
+            action="{{ url_for('crud.create_user') }}"
+            method="POST"
+            novalidate="novalidate"
+            >
+            <!-- csrf_tokenの生成 -->
+            {{ form.csrf_token }}
+
+            {% for message in get_flashed_messages() %}
+            <span class="crud-flash">{{ message }}</span>
+            {% endfor %}
+            
+            <!-- ユーザー名入力フォーム -->
+            {{ form.username(size=30, class="form-control crud-input", placeholder="ユーザー名") }}    
+            {% for error in form.username.errors %}
+            <span class="crud-flash">{{ error }}</span>
+            {% endfor %}  
+            <!-- メールアドレス入力フォーム -->
+            {{ form.email(class="form-control crud-input", placeholder="メールアドレス") }}
+            {% for error in form.email.errors %}
+            <span class="crud-flash">{{ error }}</span>
+            {% endfor %}  
+            <!-- パスワード入力フォーム -->
+            {{ form.password(class="form-control crud-input", placeholder="パスワード") }}
+            {% for error in form.password.errors %}
+            <span class="crud-flash">{{ error }}</span>
+            {% endfor %}  
+            <!-- ユーザー追加ボタン -->
+            {{ form.submit_add(class="btn btn-md brn-primary btn-block crud-btn") }}
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}
