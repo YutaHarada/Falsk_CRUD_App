@@ -37,5 +37,5 @@ class StagingConfig(BaseConfig):
 # マッピング
 config = {
     "testing": StagingConfig,
-    "local": DevelopConfig
+    "develop": DevelopConfig
     }
