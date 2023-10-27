@@ -15,12 +15,29 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 # CSRF対策を施すためのCSRFProtectクラスのインスタンス化
 csrf = CSRFProtect()
+
 # LoginManagerをインスタンス化
 login_manager = LoginManager()
 # login_view属性に未ログイン時にリダイレクトするエンドポイントを指定する。
 login_manager.login_view = "auth.login"
 # login_message属性にログイン後に表示するメッセージを指定する。
 login_manager.login_message = ""
+
+# ロガーの設定
+logging.basicConfig(filename='werkzeug.log', level=logging.DEBUG)
+# Werkzeugのロガーを取得
+werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger.setLevel(logging.INFO)
+# ファイルハンドラを作成
+file_handler = logging.FileHandler('werkzeug.log')
+file_handler.setLevel(logging.DEBUG)
+# フォーマッタを作成してハンドラにセット
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+file_handler.setFormatter(formatter)
+# ハンドラをロガーに追加
+werkzeug_logger.addHandler(file_handler)
 
 
 # アプリ構築用関数を定義
@@ -30,9 +47,6 @@ def create_app(config_key):
 
     # config_keyに応じた環境のコンフィグクラスを読み込む
     app.config.from_object(config[config_key])
-
-    # ログレベルの設定
-    app.logger.setLevel(logging.DEBUG)
 
     # CSRFProtectとアプリの連携
     csrf.init_app(app)
