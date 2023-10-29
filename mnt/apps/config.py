@@ -22,7 +22,7 @@ class BaseConfig:
 # 開発環境用のコンフィグ設定用クラス
 class DevelopConfig(BaseConfig):
     # SQLiteのデータベースファイルを出力するパスを指定する。
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'develop.sqlite'}"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'sqlite/develop.sqlite'}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # SQLをコンソールログに出力する設定
     SQLALCHEMY_ECHO = True
@@ -30,7 +30,7 @@ class DevelopConfig(BaseConfig):
 
 # 検証環境用のコンフィグ設定用クラス
 class StagingConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'staging.sqlite'}"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'sqlite/staging.sqlite'}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
