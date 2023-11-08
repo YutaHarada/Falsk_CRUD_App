@@ -37,3 +37,4 @@ class UserForm(FlaskForm):
     # ユーザーフォームのsubmit属性の文言を設定
     submit_add = SubmitField("ユーザー登録")
     submit_edit = SubmitField("更新")
+    submit_delete = SubmitField("削除")
