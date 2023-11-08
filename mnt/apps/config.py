@@ -28,14 +28,15 @@ class DevelopConfig(BaseConfig):
     SQLALCHEMY_ECHO = True
 
 
-# 検証環境用のコンフィグ設定用クラス
-class StagingConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'sqlite/staging.sqlite'}"
+# テスト環境用のコンフィグ設定用クラス
+class TestingConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir / 'sqlite/testing.sqlite'}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    WTF_CSRF_ENABLED = False
 
 
 # マッピング
 config = {
-    "testing": StagingConfig,
-    "develop": DevelopConfig
+    "develop": DevelopConfig,
+    "testing": TestingConfig,
     }
